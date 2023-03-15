@@ -1,15 +1,16 @@
 # FreeProtMap
 
 ## Data Preparation  
+### Traing dataset
 All raw traning datasets could be download from https://yanglab.nankai.edu.cn/trRosetta/benchmark/ .  
 To obtain their feature representation, run  
 ```
 python /representation_generation/representation_generation.py  
 ```
 Note: you have to set the path in representation_generation.py  
-  
+### Test datasets  
 All test data could be downloaded from https://drive.google.com/file/d/15eF6yrRyJx0KvnOMTpl_i7TVrrk-KuxQ/view?usp=sharing .  
-They should be placed under the /datasets.
+They should be placed in this directory:  /datasets.
 
 
 
