@@ -1,0 +1,30 @@
+/data/home/huangjiajian/miniconda3/envs/py39/lib/python3.9/site-packages/torch/nn/_reduction.py:13: UserWarning: reduction='elementwise_mean' is deprecated, please use reduction='mean' instead.
+  warnings.warn("reduction='elementwise_mean' is deprecated, please use reduction='mean' instead.")
+/data/home/huangjiajian/miniconda3/envs/py39/lib/python3.9/site-packages/torch/nn/_reduction.py:13: UserWarning: reduction='elementwise_mean' is deprecated, please use reduction='mean' instead.
+  warnings.warn("reduction='elementwise_mean' is deprecated, please use reduction='mean' instead.")
+Traceback (most recent call last):
+  File "/data/home/huangjiajian/code/Github/distance_predicted/main/main.py", line 39, in <module>
+    train(model,criterion_L1,optimizer,args,traindata_loader,testdata_loader)
+  File "/data/home/huangjiajian/code/Github/distance_predicted/main/../train/train_process.py", line 12, in train
+    for inputs,label,L in traindata_loader:
+  File "/data/home/huangjiajian/miniconda3/envs/py39/lib/python3.9/site-packages/torch/utils/data/dataloader.py", line 681, in __next__
+    data = self._next_data()
+  File "/data/home/huangjiajian/miniconda3/envs/py39/lib/python3.9/site-packages/torch/utils/data/dataloader.py", line 721, in _next_data
+    data = self._dataset_fetcher.fetch(index)  # may raise StopIteration
+  File "/data/home/huangjiajian/miniconda3/envs/py39/lib/python3.9/site-packages/torch/utils/data/_utils/fetch.py", line 49, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/data/home/huangjiajian/miniconda3/envs/py39/lib/python3.9/site-packages/torch/utils/data/_utils/fetch.py", line 49, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/data/home/huangjiajian/code/Github/distance_predicted/main/../inputs/inputs.py", line 94, in __getitem__
+    inputs,label,L = self.loader(self.val_num,self.dir_attention,self.distance_label,self.files,item)
+  File "/data/home/huangjiajian/code/Github/distance_predicted/main/../inputs/inputs.py", line 13, in get_train_data
+    inputs_attention = np.load(dir_attention+name)
+  File "/data/home/huangjiajian/miniconda3/envs/py39/lib/python3.9/site-packages/numpy/lib/npyio.py", line 397, in load
+    magic = fid.read(N)
+KeyboardInterrupt
+/data/home/huangjiajian/miniconda3/envs/py39/lib/python3.9/site-packages/torch/nn/_reduction.py:13: UserWarning: reduction='elementwise_mean' is deprecated, please use reduction='mean' instead.
+  warnings.warn("reduction='elementwise_mean' is deprecated, please use reduction='mean' instead.")
+/data/home/huangjiajian/miniconda3/envs/py39/lib/python3.9/site-packages/torch/nn/_reduction.py:13: UserWarning: reduction='elementwise_mean' is deprecated, please use reduction='mean' instead.
+  warnings.warn("reduction='elementwise_mean' is deprecated, please use reduction='mean' instead.")
+/data/home/huangjiajian/miniconda3/envs/py39/lib/python3.9/site-packages/torch/nn/_reduction.py:13: UserWarning: reduction='elementwise_mean' is deprecated, please use reduction='mean' instead.
+  warnings.warn("reduction='elementwise_mean' is deprecated, please use reduction='mean' instead.")
