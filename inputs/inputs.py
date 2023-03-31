@@ -58,7 +58,7 @@ def collate_fn(batch):
         pad_len = seq_len - inputs.size(2)
 
         label = F.pad(label, (0,pad_len,0,pad_len), "constant", 0)
-        inputs = F.pad(inputs, (0,pad_len,0,pad_len,0,0), "constant", 0)
+        inputs = F.pad(inputs, (0,pad_len,0,pad_len), "constant", 0)
 
         pad_inputs_list.append(inputs)
         pad_label_list.append(label)
@@ -75,21 +75,20 @@ def collate_fn(batch):
 
 
 class MyData(Dataset):
-    def __init__(self,train_num,loader,transform=None, target_transform=None):
+    def __init__(self,train_num,feature,label,loader,transform=None, target_transform=None):
         super(MyData,self).__init__()
-        self.distance_label =  "/assets_paper/huangjiajian/train_val/raw/npz/"
-        self.dir_attention ="/assets_paper/huangjiajian/15051_esm2_attention-map_2/"
+        self.feature =  feature
+        self.label =   label
 
 
         self.transform=transform
         self.target_transform=target_transform
         self.loader=loader
         self.train_num = train_num
-        self.val_num = val_num
-        self.files = os.listdir(self.dir_attention)
+        self.files = os.listdir(self.feature)
 
     def __getitem__(self, item):
-        inputs,label,L = self.loader(self.dir_attention,self.distance_label,self.files,item)
+        inputs,label,L = self.loader(self.feature,self.label,self.files,item)
         return inputs,label,L
 
 
