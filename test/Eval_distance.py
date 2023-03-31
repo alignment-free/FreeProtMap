@@ -32,10 +32,6 @@ for inputs,label,L in testdata_loader:
 
     if ( int(L.item()) > 750):
         continue
-    # if (inputs.size()[-1]!=label.size()[-1]):
-    #     continue
-
-    # print(inputs.size(),label.size())
 
 
     outputs = model(inputs,L)
