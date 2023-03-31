@@ -9,9 +9,6 @@ def train(model,criterion,optimizer,args,traindata_loader,testdata_loader):
     for epoch_num in range(args.epoch):
         for inputs,label,L in traindata_loader:
 
-            if (inputs.size()[-1] != label.size()[-1]):
-                continue
-
             inputs = inputs.squeeze()
 
             outputs = model(inputs,L)
