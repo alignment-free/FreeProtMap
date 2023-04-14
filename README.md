@@ -2,7 +2,7 @@
 
 ## Prepare Datasets  
 ### Traing dataset
-All raw traning datasets could be download from https://yanglab.nankai.edu.cn/trRosetta/benchmark/ .  
+Raw traning dataset could be download from https://yanglab.nankai.edu.cn/trRosetta/benchmark/ .  
 To generate their feature representation, run  
 ```
 python /representation_generation/representation_generation.py  
