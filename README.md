@@ -20,12 +20,12 @@ To evaluate, you need to enter the corresponding directory first
 cd /test
 ```
 
-To evaluate the performance of distance prediction, run
+To evaluate FreeProtMap for distance prediction, run
 ```
 python Eval_distance.py  -weight your_weight_path  -feature your your_feature_path  -label  your_label_path
 ```
 
-To evaluate the performance of contact prediction, run
+To evaluate FreeProtMap for contact prediction, run
 ```
 python Eval_contact_value.py  -weight your_weight_path  -feature your your_feature_path  -label  your_label_path  
 python Eval_contact_curve.py  -weight your_weight_path  -feature your your_feature_path  -label  your_label_path
