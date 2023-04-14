@@ -1,6 +1,6 @@
 # FreeProtMap
 
-## Data Preparation  
+## Prepare Datasets  
 ### Traing dataset
 All raw traning datasets could be download from https://yanglab.nankai.edu.cn/trRosetta/benchmark/ .  
 To obtain their feature representation, run  
@@ -15,17 +15,17 @@ They should be placed in this directory:  /datasets.
 
 
 ## Evaluation
-To evaluate, you need to enter the corresponding directory first  
+To evaluate FreeProtMap, run this command firstly
 ```
 cd /test
 ```
 
-To evaluate FreeProtMap for distance prediction, run
+To evaluate FreeProtMap on distance prediction task, run
 ```
 python Eval_distance.py  -weight your_weight_path  -feature your your_feature_path  -label  your_label_path
 ```
 
-To evaluate FreeProtMap for contact prediction, run
+To evaluate FreeProtMap on contact prediction task, run
 ```
 python Eval_contact_value.py  -weight your_weight_path  -feature your your_feature_path  -label  your_label_path  
 python Eval_contact_curve.py  -weight your_weight_path  -feature your your_feature_path  -label  your_label_path
