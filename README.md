@@ -7,7 +7,7 @@ To generate feature representation, run
 ```
 python /representation_generation/representation_generation.py  
 ```
-Note: you have to set the path in representation_generation.py  
+Note: It is necessary to specify the specific data path in file “representation_generation.py”.  
 ### Test datasets  
 All test data could be downloaded from https://drive.google.com/drive/folders/15QIdVAUAITGc4zeakZpRBdyyUX2vJEzg?usp=share_link .  
 Save them under the path of datasets/ .
