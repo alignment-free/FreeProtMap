@@ -10,7 +10,7 @@ python /representation_generation/representation_generation.py
 Note: you have to set the path in representation_generation.py  
 ### Test datasets  
 All test data could be downloaded from https://drive.google.com/drive/folders/15QIdVAUAITGc4zeakZpRBdyyUX2vJEzg?usp=share_link .  
-They should be placed in this directory:  /datasets.
+Save them under the path of datasets/ .
 
 
 
