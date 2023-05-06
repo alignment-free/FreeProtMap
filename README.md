@@ -9,7 +9,7 @@ python /representation_generation/representation_generation.py
 ```
 Note: It is necessary to specify the data path in file “representation_generation.py”.  
 ### Test datasets  
-All test data could be downloaded from https://drive.google.com/drive/folders/15QIdVAUAITGc4zeakZpRBdyyUX2vJEzg?usp=share_link .  
+All test data could be downloaded from https://drive.google.com/drive/folders/1oOVKjiTFtnetrInZyASEp7Y7yyF85lsv?usp=sharing .  
 Save them under the path of datasets/ .
 
 
