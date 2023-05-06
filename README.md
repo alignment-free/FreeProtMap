@@ -13,6 +13,9 @@ All test data could be downloaded from https://drive.google.com/drive/folders/1o
 Save them under the path of datasets/ .
 
 
+### Installation
+Openfold needs to be installed first.
+
 
 ## Evaluation
 To evaluate FreeProtMap, run this command firstly
