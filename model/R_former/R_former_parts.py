@@ -4,6 +4,10 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 
+
+
+
+
 def weights_init_kaiming(m):
     classname = m.__class__.__name__
     if classname.find('Linear') != -1:
@@ -43,6 +47,20 @@ class LAttention(nn.Module):
         self.to_q.apply(weights_init_classifier)
         self.to_k.apply(weights_init_classifier)
         self.to_v.apply(weights_init_classifier)
+
+
+        self.o_proj = nn.Linear(dim, dim, bias=True)
+        self.g_proj = nn.Linear(dim, dim)
+        torch.nn.init.zeros_(self.g_proj.weight)
+        torch.nn.init.ones_(self.g_proj.bias)
+
+        torch.nn.init.zeros_(self.o_proj.bias)
+
+
+
+
+
+
     def forward(self, x,mask = None):
         q = self.to_q(x)
         k = self.to_k(x)
@@ -53,7 +71,10 @@ class LAttention(nn.Module):
         dots = torch.einsum('bshid,bshjd->bshij', q, k) * self.scale
         attn = dots.softmax(dim=-1)
         out = torch.einsum('bshij,bshjd->bshid', attn, v)
+
         out = rearrange(out, 'b s h n d -> b s n (h d)')
+
+
         return out
 
 
