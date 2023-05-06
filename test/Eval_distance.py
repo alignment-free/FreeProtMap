@@ -1,6 +1,5 @@
 import os
 import sys
-sys.path.append("..")
 from argparse import ArgumentParser
 import torch 
 import torch.nn as nn
@@ -8,11 +7,15 @@ from inputs.inputs import *
 import numpy as np
 import torch
 
-
 parser = ArgumentParser(description='')
-parser.add_argument('-weight', default="/data/home/huangjiajian/code/Github/distance_predicted/weights/25.pth")
-parser.add_argument('-feature', default="/assets_paper/huangjiajian/baker_attention_2/")
-parser.add_argument('-label', default="/data/home/huangjiajian/code/Github/distance_predicted/datasets/Baker/distance/")
+parser.add_argument('-weight', default="")
+
+
+parser.add_argument('-feature', default="")
+parser.add_argument('-label', default="")
+
+
+
 args = parser.parse_args()
 model = torch.load(args.weight)
 
@@ -25,61 +28,111 @@ small_num = 0
 Sum_MAE = 0
 Sum_RMSE = 0
 Sum_RS = 0
+Sum_UNCERTAIN = 0
 
 sum_num = 0
 
-for inputs,label,L in testdata_loader:
 
-    if ( int(L.item()) > 750):
-        continue
-
-
-    outputs = model(inputs,L)
-
-    value = torch.floor(label).to(torch.int)
-    value_1 = torch.where(value == 0 , 0, 1)
-    value   = value_1
-    num = torch.sum(torch.sum(value))
-    value = value.unsqueeze(1)
-    outputs = value*outputs.cuda().unsqueeze(0).unsqueeze(1)
-    label = value*label.cuda().unsqueeze(0).unsqueeze(1)
-    outputs = outputs.squeeze()
-    label = label.squeeze()
+list_RMSE = torch.ones(90)
+list_RS = torch.ones(90)
+list_MAE = torch.ones(90)
+list_uncertain = torch.ones(90)
 
 
 
-    outputs_MSE = outputs*100
-    MSE = (outputs_MSE-label)**2
-    MSE = torch.sum(torch.sum(MSE))/num
-    RMSE =MSE.item()** 0.5 
-    Sum_RMSE = Sum_RMSE + RMSE
 
-    value_mean = torch.sum(torch.sum(outputs_MSE))/num
-    value_predict = outputs_MSE - label
-    value_predict = torch.sum(torch.sum(value_predict**2))
-    value_total = label - value_mean
-    value_total = torch.sum(torch.sum(value_total**2))
-    RS = 1- value_predict/ value_total
-    Sum_RS = Sum_RS + RS.item()
 
-    outputs = outputs*100
-    D_value = outputs - label
-    D_value = (torch.sum(torch.sum(torch.abs(D_value)))/num).item()
-    Sum_MAE = Sum_MAE + D_value
+with torch.no_grad():
+    for inputs,label,L in testdata_loader:
+
+        
+        if ( int(L.item()) > 750):
+            continue
+
+
+        outputs,uncertain = model(inputs,L)
+
+
+        value = torch.where(label < 36 , 1, 0)
+        value = value.unsqueeze(1)
 
 
 
-    sum_num = sum_num + 1
+        outputs = outputs * value
+        label = label * value
+        uncertain = uncertain * value
+
+
+        label = label.unsqueeze(1)
+
+
+
+
+
+        ones = torch.ones(outputs.size()).cuda()
+        eyes = torch.eye(outputs.size()[-1]).cuda()
+        tmp = ones - eyes
+        outputs = tmp*outputs
+        distance = outputs * 100
+        uncertain = uncertain * 100
+
+        D_value = distance - label
+        uncertain = uncertain - D_value
+        uncertain = (torch.mean(torch.mean(torch.abs(uncertain)))).item()
+
+        Sum_UNCERTAIN = Sum_UNCERTAIN + uncertain
+        list_uncertain[sum_num] = uncertain
+
+
+
+
+        D_value = (torch.mean(torch.mean(torch.abs(D_value)))).item()
+        Sum_MAE = Sum_MAE + D_value
+        list_MAE[sum_num] = D_value
+
+
+
+
+        MSE = (distance-label)**2
+        MSE = torch.mean(torch.mean(MSE))
+        RMSE =MSE.item()** 0.5 
+        Sum_RMSE = Sum_RMSE + RMSE
+        list_RMSE[sum_num] = RMSE
+
+        value_mean = torch.mean(torch.mean(distance))
+        value_predict = distance - label
+        value_predict = torch.mean(torch.mean(value_predict**2))
+        value_total = label - value_mean
+        value_total = torch.mean(torch.mean(value_total**2))
+        RS = 1- value_predict/ value_total
+        Sum_RS = Sum_RS + RS.item()
+        list_RS[sum_num] = RS
+
+        sum_num = sum_num + 1
+
 
 MAE  = Sum_MAE / sum_num
 RMSE = Sum_RMSE / sum_num
 RS   = Sum_RS / sum_num
+UNCERTAIN   = Sum_UNCERTAIN / sum_num
 
+
+
+S_MAE = torch.abs((list_MAE-MAE))
+S_MAE = torch.mean(S_MAE)
+
+S_RMSE = torch.abs((list_RMSE-RMSE))
+S_RMSE = torch.mean(S_RMSE)
+
+S_RS = torch.abs((list_RS-RS))
+S_RS = torch.mean(S_RS)
 
 
 print('MAE',MAE)
 print('RMSE',RMSE)
 print('RS',RS)
+print('UNCERTAIN',UNCERTAIN)
 
-
-
+print('S_MAE',S_MAE)
+print('S_RMSE',S_RMSE)
+print('S_RS',S_RS)
