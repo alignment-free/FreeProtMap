@@ -18,6 +18,11 @@ def train(model,criterion,optimizer,args,traindata_loader,testdata_loader):
             value = value.unsqueeze(1)
             outputs = value*outputs
 
+            value = torch.where(label < 36 , 1, 0)
+            label = label * value
+            value = value.unsqueeze(1)
+            outputs = outputs * value
+            
 
             label = label/100
             label = label.unsqueeze(1)
