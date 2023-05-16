@@ -47,7 +47,7 @@ for inputs,label,L in testdata_loader:
 
     num = num + 1 
 
-    outputs = model(inputs,L)
+    outputs,certain = model(inputs,L)
     outputs = outputs.squeeze()
     outputs = (1-outputs)/0.92*0.5
     outputs = torch.where(outputs < 0.5 , 0, 1)
@@ -68,10 +68,7 @@ for inputs,label,L in testdata_loader:
     F1_all = F1_all + F1
 
 
-    predicted = torch.sum(torch.sum(outputs))
-    real = torch.sum(torch.sum(label))
-    predicted_all = predicted_all + predicted
-    real_all = real_all + real
+
 
 
 
@@ -83,8 +80,6 @@ print('PRECISION',precision_all.item()/num)
 print('RECALL',recall_all.item()/num)
 
 
-print('predicted_contact',predicted_all.item())
-print('real_contact',real_all.item())
 
 
 
