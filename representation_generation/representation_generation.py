@@ -14,8 +14,8 @@ group_dim = 36
 model, alphabet = esm.pretrained.esm2_t36_3B_UR50D()
 batch_converter = alphabet.get_batch_converter()
 
-source_dir = '/assets_paper/huangjiajian/baker_fasta/'
-save_dir = '/assets_paper/huangjiajian/baker_attention/'
+source_dir = ''
+save_dir = ''
 
 
 
@@ -29,7 +29,7 @@ for File in Files:
     name = File[0][1:].strip()
     seq = File[1].strip()
 
-    if (len(seq) > 700):
+    if (len(seq) > 750):
         continue
 
     L = len(seq)
