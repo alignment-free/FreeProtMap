@@ -21,16 +21,12 @@ model = torch.load(args.weight)
 testdata = TestData(get_test_data,args.feature,args.label)
 testdata_loader = DataLoader(testdata, batch_size=1, shuffle=False, drop_last=True)
 
-
-
-AUC_ROC_all = 0 
-AUC_PR_all = 0 
-num = 0
-
+y_test_all = torch.from_numpy(np.array([]))
+y_score_all = torch.from_numpy(np.array([]))
 
 
 for inputs,label,L in testdata_loader:
-    outputs = model(inputs,L)
+    outputs,certain = model(inputs,L)
     outputs = outputs.squeeze()
     outputs = 1-outputs
     outputs = (outputs/0.92)*0.5
@@ -48,19 +44,23 @@ for inputs,label,L in testdata_loader:
 
     y_test = label.detach().cpu().numpy()
     y_score = outputs.detach().cpu().numpy()
-    fpr,tpr,thre = roc_curve(y_test,y_score)
-    precision, recall, thresholds = precision_recall_curve(y_test, y_score)
 
-    AUC_ROC = auc(fpr,tpr)
-    AUC_ROC_all = AUC_ROC_all + AUC_ROC
-
-    AUC_PR = auc(recall, precision)
-    AUC_PR_all = AUC_PR_all + AUC_PR
-
-
-    num = num + 1
+    y_test = np.concatenate((y_test_all, y_test), axis=0, out=None, dtype=None, casting="same_kind")
+    y_score = np.concatenate((y_score_all, y_score), axis=0, out=None, dtype=None, casting="same_kind")
 
 
 
-print('ROC',AUC_ROC_all/num)
-print('PR',AUC_PR_all/num)
+
+fpr,tpr,thre = roc_curve(y_test,y_score)
+precision, recall, thresholds = precision_recall_curve(y_test, y_score)
+
+AUC_ROC = auc(fpr,tpr)
+AUC_PR = auc(recall, precision)
+
+
+
+
+
+
+print('ROC',AUC_ROC)
+print('PR',AUC_PR)
