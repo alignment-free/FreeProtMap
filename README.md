@@ -5,9 +5,9 @@
 Raw traning dataset could be download from https://yanglab.nankai.edu.cn/trRosetta/benchmark/ .  
 To generate feature representation, run  
 ```
-python /representation_generation/representation_generation.py  
+cd /representation_generation
+python representation_generation.py  -source_dir your fatsa_path -save_dir  your save_path
 ```
-Note: It is necessary to specify the data path in file “representation_generation.py”.  
 ### Test datasets  
 All test data could be downloaded from https://drive.google.com/drive/folders/1oOVKjiTFtnetrInZyASEp7Y7yyF85lsv?usp=sharing .  
 Save them under the path of datasets/ .
