@@ -2,7 +2,7 @@ import os
 import sys
 sys.path.append("..") 
 from einops import rearrange
-
+from argparse import ArgumentParser
 import torch 
 import torch.nn as nn
 from inputs.inputs import *
@@ -14,25 +14,22 @@ group_dim = 36
 model, alphabet = esm.pretrained.esm2_t36_3B_UR50D()
 batch_converter = alphabet.get_batch_converter()
 
-source_dir = ''
-save_dir = ''
+parser = ArgumentParser(description='')
+parser.add_argument('-source_dir', default="")
+parser.add_argument('-save_dir', default="")
+args = parser.parse_args()
 
 
-
-Files = os.listdir(source_dir)
+Files = os.listdir(args.source_dir)
 
 
 model = model.cuda()
 for File in Files:
-    File = open(source_dir+File,'r')
+    File = open(args.source_dir+File,'r')
     File = File.readlines()
     name = File[0][1:].strip()
     seq = File[1].strip()
 
-    if (len(seq) > 750):
-        continue
-
-    L = len(seq)
 
     data = [(name, seq)]
 
@@ -53,7 +50,7 @@ for File in Files:
 
     pred_all = outputs.detach().cpu().numpy()
     pred = np.max(pred_all, axis=1)
-    np.save(save_dir+name.strip(),pred)
+    np.save(args.save_dir+name.strip(),pred)
 
 
 
