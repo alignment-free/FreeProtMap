@@ -15,15 +15,15 @@ Save them under the path of datasets/ .
 
 ### Installation
 ESM,dlogger,openfold need to be installed.
-'''
+```
 git clone https://github.com/facebookresearch/esm.git  
 git clone https://github.com/NVIDIA/dllogger.git
 git clone https://github.com/aqlaboratory/openfold.git
-'''
+```
 Enter the corresponding file directory and run 
-'''
+```
 pip install .
-'''
+```
 
 
 
