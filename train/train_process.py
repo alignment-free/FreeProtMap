@@ -4,7 +4,7 @@ from tensorboardX import SummaryWriter
 
 
 
-def train(model,criterion,optimizer,args,traindata_loader,testdata_loader):
+def train(model,criterion,optimizer,args,traindata_loader):
     softmax = torch.nn.Softmax(dim=1)
     for epoch_num in range(args.epoch):
         for inputs,label,L in traindata_loader:
