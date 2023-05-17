@@ -14,7 +14,7 @@ Save them under the path of datasets/ .
 
 
 ### Installation
-ESM,dlogger,openfold need to be installed.
+ESM, dlogger and openfold need to be installed.
 ```
 git clone https://github.com/facebookresearch/esm.git  
 git clone https://github.com/NVIDIA/dllogger.git
