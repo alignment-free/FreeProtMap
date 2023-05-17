@@ -35,7 +35,7 @@ cd /test
 
 To evaluate FreeProtMap on distance prediction task, run
 ```
-python Eval_distance.py  -weight your_weight_path  -feature your your_feature_path  -label  your_label_path
+python Eval_distance.py  -weight your_weight_path  -feature your_feature_path  -label  your_label_path
 ```
 
 To evaluate FreeProtMap on contact prediction task, run
