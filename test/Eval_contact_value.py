@@ -10,9 +10,9 @@ from argparse import ArgumentParser
 
 
 parser = ArgumentParser(description='')
-parser.add_argument('-weight', default="/data/home/huangjiajian/code/Github/distance_predicted/weights/25.pth")
-parser.add_argument('-feature', default="/assets_paper/huangjiajian/Ecoli_attention_2/")
-parser.add_argument('-label', default="/data/home/huangjiajian/code/Github/distance_predicted/datasets/E.coli/distance/")
+parser.add_argument('-weight', default="")
+parser.add_argument('-feature', default="")
+parser.add_argument('-label', default="")
 args = parser.parse_args()
 model = torch.load(args.weight)
 
