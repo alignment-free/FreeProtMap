@@ -13,7 +13,7 @@ from model.R_former.R_former_model import R_former
 parser = ArgumentParser(description='')
 parser.add_argument('--log', default="")
 parser.add_argument('-train_num', default=11000)      
-parser.add_argument('-train_batchsize', default=8)
+parser.add_argument('-train_batchsize', default=1)
 parser.add_argument('--feature', default='')
 parser.add_argument('--label', default='')
 parser.add_argument('--save_dir', default='')
