@@ -46,10 +46,6 @@ list_uncertain = torch.ones(90)
 with torch.no_grad():
     for inputs,label,L in testdata_loader:
 
-        
-        if ( int(L.item()) > 750):
-            continue
-
 
         outputs,uncertain = model(inputs,L)
 
