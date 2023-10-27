@@ -9,9 +9,9 @@ def train(model,criterion,optimizer,args,traindata_loader):
     for epoch_num in range(args.epoch):
         for inputs,label,L in traindata_loader:
 
-            inputs = inputs.squeeze()
+            #inputs = inputs.squeeze()
 
-            outputs = model(inputs,L)
+            outputs, pMAE = model(inputs,L)
   
             value = torch.floor(label).to(torch.int)
             value = torch.where(value == 0 , 0, 1)
@@ -26,12 +26,16 @@ def train(model,criterion,optimizer,args,traindata_loader):
 
             label = label/100
             label = label.unsqueeze(1)
-
-            loss = criterion(outputs,label)       
+            
+            results = torch.abs(outputs-label)
+            loss = criterion(pMAE,results)       
             loss.backward()
             
             optimizer.step()
             optimizer.zero_grad()
+            
+            
+        torch.save(model, args.save_dir+str(epoch_num)+'.pth')
 
 
 
